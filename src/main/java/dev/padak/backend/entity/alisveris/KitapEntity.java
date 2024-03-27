@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -22,4 +24,11 @@ public class KitapEntity {
     private String yazar;
     @Column(name = "FIYAT")
     private BigDecimal fiyat;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "kitap_kategorileri",
+            joinColumns = @JoinColumn(name = "kitap_id"),
+            inverseJoinColumns = @JoinColumn(name = "kategori_id")
+    )
+    private Set<KategoriEntity> kategoriler = new HashSet<>();
 }

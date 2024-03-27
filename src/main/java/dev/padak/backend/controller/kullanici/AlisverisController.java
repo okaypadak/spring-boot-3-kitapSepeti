@@ -52,11 +52,8 @@ public class AlisverisController {
         return ResponseEntity.ok(sepetDTO);
     }
 
-    @GetMapping("/sepet/odeme")
+    @PostMapping("/sepet/odeme")
     public ResponseEntity<MesajDTO> odeme(@RequestBody SepetRequestDTO request) {
-
-
-
 
         return ResponseEntity.ok(MesajDTO.builder().kod("").aciklama("").build());
     }

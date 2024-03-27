@@ -14,20 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/kullanici")
 public class KullaniciController {
 
     @Autowired
     private AuthenticationService authenticationService;
 
-    private Logger logger = LoggerFactory.getLogger(KullaniciController.class);
-
-
-    @PostMapping("/register")
+    @PostMapping("/kayit")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(authenticationService.register(registerRequest));
     }
-    @PostMapping("/login")
+    @PostMapping("/giris")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authenticationService.login(loginRequest));
     }

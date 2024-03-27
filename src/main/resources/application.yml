@@ -7,8 +7,14 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       # DDL auto mode: update, validate, create, create-drop
 
 server:
   port: 9909
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

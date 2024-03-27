@@ -16,9 +16,18 @@ public class KitapController {
     @Autowired
     KitapService kitapService;
 
-    @PreAuthorize("hasRole('KULLANICI')")
     @GetMapping("/listesi")
     public ResponseEntity<List<KitapDTO>> liste() {
+        return ResponseEntity.ok(kitapService.tumListe());
+    }
+
+    @PostMapping("/ekle")
+    public ResponseEntity<List<KitapDTO>> ekle() {
+        return ResponseEntity.ok(kitapService.tumListe());
+    }
+
+    @PostMapping("/cikar")
+    public ResponseEntity<List<KitapDTO>> cikar() {
         return ResponseEntity.ok(kitapService.tumListe());
     }
 }

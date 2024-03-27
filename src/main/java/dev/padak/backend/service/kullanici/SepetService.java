@@ -56,6 +56,30 @@ public class SepetService {
 
     }
 
+    public SepetDTO cikar(SepetRequestDTO request){
+
+        if(sepetRepository.existsByKullaniciIdAndKitapId(request.getKullaniciId(), request.getKitapId())) {
+
+            List<SepetEntity> sepetListesi = sepetRepository.findByKullaniciId(request.getKullaniciId());
+
+            Optional<SepetEntity> sepetKitap = sepetListesi.stream().filter(tek -> Objects.equals(tek.getKitap().getId(), request.getKitapId())).findFirst();
+            sepetKitap.get().setAdet(sepetKitap.get().getAdet() + request.getAdet());
+            sepetRepository.save(sepetKitap.get());
+
+        } else {
+
+            SepetEntity sepet = new SepetEntity();
+            sepet.setAdet(request.getAdet());
+            sepet.setKitap(kitapService.getirKitap(request.getKitapId()).orElseThrow(() -> new RuntimeException("Böyle bir kitap yok")));
+            sepet.setKullanici(userService.getirKullaniciId(request.getKullaniciId()).orElseThrow(() -> new RuntimeException("Böyle bir kullanıcı yok")));
+
+            sepetRepository.save(sepet);
+        }
+
+        return sepetListesi(request.getKullaniciId());
+
+    }
+
     public SepetDTO sepetListesi(Long id){
 
         List<SepetKitapListesiDTO> kitapListesi = sepetRepository.findByKullaniciId(id).stream().map(tek -> {
